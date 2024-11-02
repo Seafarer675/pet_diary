@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="diary.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body style="background:linear-gradient(45deg, #e1467a, #feef66);">
+    <div class="small_logo_container">
+        <img src="pet_diray.png" alt="Pet Diary Logo">
+    </div>
+
+    <button class="button" style="top: 20px; left: 20px;" onclick="history.back()">返回</button>
+    <p style="position: absolute; top: 12%; left: 42%; color: rgb(141, 54, 39);">輸入日期來查看或編輯日記</p>
+    <form  id="editform">
+
+        
+        <input type="date" class="date" id="date"  style="top: 18%; left: 45%;">
+        <input type="submit" class="button" id="submit" style="top: 16.7%; left: 55%; display: none;" >
+        
+        <textarea class="dynamic-textarea" id="diary" style="top: 25%; left: 25%; display: none;" readonly></textarea>
+        <button class="button" style="top: 50%; left: 25%; display: none;" id="edit" onclick="toggleReadonly()">修改</button>
+        <button class="button" style="top: 50%; left: 30%; display: none;" id="save" >儲存</button>
+        <button class="button" style="top: 50%; left: 63%; display: none;" id="remove" >刪除</button>
+    </form>
+</body>
+
+<script>
+    $(document).ready(function(){
+        $('#date').on('change', function(){
+            if ($(this).val() !== '') {
+                $('#submit').show();
+            }
+        }); 
+
+        $('#editform').on('submit', function(event){
+            event.preventDefault();
+            var find_date = $("#date").val();
+            
+            
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost/final/edit.php',
+                dataType: "text",
+                data:{
+                    operation: 'search',
+                    
+                    search_date : find_date
+                },
+                success: function(response){
+                    if (response.includes("尚未建立日記")){
+                        $("#diary").val(response).show()
+                    }else{
+                        $("#diary").val(response).show()
+                        $("#edit").show()
+                        $("#remove").show() 
+                    }
+                    
+                },
+                error:function(message){
+                    alert.error(message);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function(){
+        $('#save').on('click', function(event){
+            event.preventDefault();
+            $('#save').hide();
+            var save = $("#save").val();
+            var new_diary = $("#diary").val();
+            var edit_date = $("#date").val();
+            
+            
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost/final/edit.php',
+                dataType: "text",
+                data:{
+                    operation:'save',
+                    save : save,
+                    new_diary : new_diary,
+                    edit_date : edit_date
+                },
+                success: function(response){
+                    alert(response)
+                },
+                error:function(message){
+                    alert.error(message);
+                }
+            });
+        });
+    });
+
+$(document).ready(function(){
+    $('#remove').on('click', function(event){
+        event.preventDefault();
+
+        var remove = $("#remove").val();
+        var remove_date = $("#date").val();
+        
+        
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost/final/edit.php',
+            dataType: "text",
+            data:{
+                operation:'delete',
+                remove : remove,
+                remove_date : remove_date
+            },
+            success: function(response){
+                alert(response)
+                $("#diary").val(response).hide()
+                $("#edit").hide()
+                $("#remove").hide()
+                $('#save').hide();
+
+            },
+            error:function(message){
+                alert.error(message);
+            }
+        });
+    });
+});
+
+function toggleReadonly() {
+    var textarea = document.getElementById('diary');
+    textarea.removeAttribute('readonly'); // 移除 readonly 屬性
+    textarea.focus(); // 自動焦點到 textarea
+    var save= document.getElementById('save');
+    save.style.display = "block";
+}
+
+</script>
+</html>
+

@@ -1,0 +1,56 @@
+
+
+.dynamic-textarea {
+    position: absolute;
+    top:23%;
+    left:30%;
+    padding: 10px;
+    border: 2px solid ;
+    border-radius: 5px;
+    width: 600px; 
+    height: 150px; 
+    overflow: auto;
+    resize: none;
+    background: linear-gradient(45deg, #e1467a, #feef66);
+    color:black;
+   
+}
+
+.small_logo_container {
+    position: absolute;
+    top: -3%; 
+    left: 45%; 
+    width: 10%;
+    height: 10%;
+    transform: translateX(-50%) scale(0.5); 
+    background: transparent;
+    transition: transform 0.5s, top 0.5s, left 0.5s, width 0.5s, height 0.5s ;
+}
+
+.button {
+    font-size: large;
+    position: absolute;
+    z-index: 5;
+    width: fit-content;
+    background-color: transparent;
+    color: rgb(141, 54, 39);
+    border-style: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    &:hover {
+        background-color: rgb(255, 142, 114);
+    }
+}
+
+.date{
+    position: absolute;
+    top:10%;
+    left:30%;
+
+    border-radius: 5px;
+     
+    overflow: auto;
+    resize: none;
+    background: linear-gradient(45deg, #e1467a, #feef66);
+    color:black;
+}

@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="login.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <div class="logo_container"; id="logo_container">
+                <img src="pet_diray.png">
+            </div>
+        <div class="ring">
+            
+            <div class="login">
+                
+                    <h2>Login</h2>
+                    <form id="login_form" method="post" action="http://localhost/final/login.php">
+                        <div class="inputBx">
+                            <input type="text" placeholder="Username" id="username">
+                        </div>
+
+                        <div class="inputBx">
+                            <input type="password" placeholder="Password" id="password">
+                        </div>
+
+                        <div class="inputBx">
+                            <input type="submit" value="Login">
+                        </div>
+
+                        <div class="links">
+                            <a href="sign_up.html">Sign up</a>
+                        </div>
+
+                    </form>
+            </div>
+        </div> 
+    </body>
+    
+    <script>
+        $(document).ready(function(){
+        $('#login_form').on('submit', function(event){
+        event.preventDefault();
+
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost/final/login.php',
+            dataType: "text",
+            data:{
+                username: username,
+                password: password,
+            },
+            success: function(response){
+                if (response == "sign in suceesfully"){
+                    alert(response)
+                    window.location='test.html';
+                }
+                else{
+                    console.log("useless")
+                }
+
+            },
+            error:function(message){
+                console.error(message);
+            }
+        });
+    
+    });
+});
+    </script>
+</html>
+

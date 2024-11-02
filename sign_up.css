@@ -1,0 +1,74 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #111;
+    width: 100%;
+    overflow: hidden;
+  }
+  .logo_container{
+      position: absolute;
+      top: 0%; 
+      left: 37%; 
+      width: 10%;
+      height: 10%;
+      
+  }
+  .ring{
+      position:absolute;
+      top: 50%;
+      left: 40%;
+  }
+  .login {
+    position: absolute;
+    width: 300px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .login h2 {
+    font-size: 2em;
+    color: #fff;
+  }
+  .login .inputBx {
+    position: relative;
+    width: 100%;
+  }
+  .login .inputBx input {
+    position: relative;
+    width: 100%;
+    padding: 12px 20px;
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    font-size: 1.2em;
+    color: #fff;
+    box-shadow: none;
+    outline: none;
+  }
+  .login .inputBx input[type="submit"] {
+    width: 100%;
+    background: #0078ff;
+    background: linear-gradient(45deg, #ff357a, #fff172);
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background: linear-gradient(45deg, #8b002e, #c7b302);
+    }
+  }
+  .login .inputBx input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  

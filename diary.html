@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="diary.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body style="background:linear-gradient(45deg, #e1467a, #feef66);">
+    <div class="small_logo_container">
+        <img src="pet_diray.png" alt="Pet Diary Logo">
+    </div>
+
+    <button class="button" style="top: 20px; left: 20px;" onclick="history.back()">返回</button>
+    <p style="position: absolute; top: 12%; left: 42%; color: rgb(141, 54, 39);">輸入日期來新增日記</p>
+    <form id="diaryform">
+        <textarea class="dynamic-textarea" id="diary" readonly></textarea>
+        <input type="date" class="date" id="date" style="top: 18%; left: 45%;">
+        <input type="reset" class="button" id="reset" style="top: 50%; left: 30%; display: none;">
+        <input type="submit" class="button" id="submit" style="top: 50%; left: 68%; display: none;" >
+    </form>
+</body>
+
+<script>
+    $(document).ready(function(){
+
+        $('#date').on('change', function(){
+            if ($(this).val() !== '') {
+                $('#submit').show();
+                $('#reset').show();
+                toggleReadonly();
+            }
+        });
+
+        $('#diaryform').on('submit', function(event){
+            event.preventDefault();
+
+            var diaryText = $("#diary").val();
+            var selectedDate = $("#date").val();
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost/final/diary.php',
+                dataType: "text",
+                data:{
+                    diary: diaryText,
+                    date: selectedDate,
+                },
+                success: function(response){
+                    alert(response);
+                    window.location = 'test.html'
+                },
+                error:function(message){
+                    console.error(message);
+                }
+            });
+        });
+});
+
+function toggleReadonly() {
+    var textarea = document.getElementById('diary');
+    textarea.removeAttribute('readonly'); // 移除 readonly 屬性
+    textarea.focus(); // 自動焦點到 textarea
+
+}
+
+</script>
+</html>

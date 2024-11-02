@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="login.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <div class="logo_container"; id="logo_container">
+                <img src="pet_diray.png">
+            </div>
+        <div class="ring">
+            
+            <div class="login">
+                
+                    <h2>Sign_up</h2>
+                    <form id="sign_up" >
+                        <div class="inputBx">
+                            <input type="text" placeholder="Username" id="username">
+                        </div>
+
+                        <div class="inputBx">
+                            <input type="password" placeholder="Password" id="password">
+                        </div>
+
+                        <div class="inputBx">
+                            <input type="submit" value="Sign up">
+                        </div>
+
+                    </form>
+            </div>
+        </div> 
+    </body>
+    
+    <script>
+        $(document).ready(function(){
+        $('#sign_up').on('submit', function(event){
+        event.preventDefault();
+
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost/final/sign_up.php',
+            
+            data:{
+                username: username,
+                password: password,
+                register: true
+            },
+            success: function(response){
+                alert(response)
+                if (response === "Username has been used"){
+                   window.location = 'sign_up.html' 
+                }else{
+                    window.location = 'login.html'
+                }
+                
+            },
+            error:function(message){
+                console.error(message);
+            }
+        });
+    });
+});
+    </script>
+</html>
+
